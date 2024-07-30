@@ -11,7 +11,6 @@ img_compare = true
 The purpose of the pass is to protect strings from a static analysis.
 {{< /pass_purpose >}}
 
-
 Strings, along with constants and symbols, are the kind of information that are quickly accessible
 and very efficient in reverse engineering to guess or infer the purpose of a function.
 
@@ -225,10 +224,9 @@ It is also worth highlighting some aspects of this protection:
 
 So in the end, the compiled and protected binary looks like this:
 
-
 {{< img-diff "img/inline.webp" "img/clear.webp" "omvll">}}
 
-As we can notice, this option **drastically** increases the code's size for which
+As we can notice, this option **drastically** increases the code size for which
 **the overhead is proportional** to the original length of the string.
 
 {{< alert type="danger" icon="fa-regular fa-arrow-up-big-small" >}}
@@ -476,7 +474,7 @@ G.setInitializer(StrEnc);
 ```
 
 In its current implementation, the `encode/decode` functions are statically written in the code of the pass,
-but we could also imagine supporting routines provided by the user through the Python API:
+but we could also imagine supporting routines provided by the user through Python APIs:
 
 ```python
 def obfuscate_string(self, _, __, string: bytes):
@@ -490,7 +488,7 @@ You can find more details about the JIT engine used in O-MVLL in the section [LL
 
 ### StringEncOptStack Looped
 
-If the user returns the option `StringEncOptStack` for which the string is eligible to a loop, the pass
+If the option `StringEncOptStack` is provided, for which the string is eligible to a loop, the pass
 starts by allocating a buffer:
 
 ```cpp
@@ -500,7 +498,6 @@ AllocaInst* clearBuffer = IRB.CreateAlloca(IRB.getInt8Ty(),
 ```
 
 Then it injects the decoding routine using the same JIT-technique as [StringEncOptGlobal](#StringEncOptGlobal).
-
 
 Finally, it replaces the original instruction's operand -- which referenced the clear string -- with the new stack buffer:
 
