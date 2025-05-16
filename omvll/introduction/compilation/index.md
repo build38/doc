@@ -39,7 +39,8 @@ $ cmake -GNinja ..                                              \
         -DPython3_INCLUDE_DIR=${PYTHON_ROOT}/include/python3.10 \
         -Dpybind11_DIR=${PYBIND11_ROOT}/share/cmake/pybind11    \
         -Dspdlog_DIR=${SPDLOG_ROOT}/lib/cmake/spdlog            \
-        -DLLVM_DIR=${NDK_STAGE2}/lib64/cmake/llvm
+        -DLLVM_DIR=${NDK_STAGE2}/lib64/cmake/llvm               \
+        -DOMVLL_ABI=CustomAndroid
 $ ninja
 ```
 
