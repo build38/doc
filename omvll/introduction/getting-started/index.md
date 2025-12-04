@@ -256,13 +256,16 @@ A per-module log with detailed information about the obfuscation pipeline. These
 {{< alert type="dark" icon="fa-regular fa-face-thinking" >}}
 Log files are generated per module, not per compilation unit.
 {{</ alert >}}
-In Swift, the compiler commonly groups multiple `.swift` source files into fewer frontend invocations, so you will usually see fewer log files than source files:
-1. Whole Module Optimization (WMO) / “Whole-Module Compilation”
-When WMO is enabled, Swift compiles the entire module in a single invocation.
-In this case, O-MVLL typically produces one log per module (and architecture).
-2. Batch Mode (SWIFT_ENABLE_BATCH_MODE=YES, default in Xcode)
-Swift compiles several files together per invocation.
-O-MVLL therefore generates one log per batch/module, not per individual source file.
+In Swift, the compiler commonly groups multiple `.swift` source files into fewer
+frontend invocations, so you will usually see fewer log files than source files.
+Depending on the compilation mode:
+1. Whole Module Optimization (WMO): Swift compiles the entire module in a single
+invocation. In this case, O-MVLL typically produces one log per module (and
+architecture).
+2. Incremental compilation: Swift compiles several files together per invocation.
+With `SWIFT_ENABLE_BATCH_MODE=YES` (enabled by default with incremental mode),
+each frontend invocation compiles a batch of source files instead of just one.
+O-MVLL therefore generates one log per batch, not per individual `.swift` file.
 
 If you need one log per Swift source file (for troubleshooting or deeper per-file inspection), disable Batch Mode in Xcode by adding a User-Defined Build Setting:
 
