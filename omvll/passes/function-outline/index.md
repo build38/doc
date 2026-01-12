@@ -86,3 +86,6 @@ entry:
 - One may incur moderate performance penalty due to the overhead coming from increased
   code size as well as extra bookkeeping (prologues/epilogues, pushing return address,
   etc.) for the new outlined functions.
+- Function Outline has been observed to cause incorrect behavior or build issues in some
+  Swift-based applications. The root cause is currently under investigation, and
+  applying this pass to Swift code should be done with caution.
