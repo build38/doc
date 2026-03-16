@@ -80,6 +80,10 @@ As such, the target address is reconstructed and computed at runtime.
 
 ## Limitations
 
+- On iOS versions 17 and earlier, executing the application in development mode with ASan (Address
+Sanitizer) enabled in Xcode 26.x may trigger a runtime error. This issue stems from known limitations
+of ASan on these iOS versions.
+
 - Functions marked as `alwaysinline` are skipped to let the call-site be inlineable.
 
 - One may incur performance penalties due to the overhead coming from the further layer of indirection.
