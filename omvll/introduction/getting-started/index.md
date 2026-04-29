@@ -166,6 +166,26 @@ class MyConfig(omvll.ObfuscationConfig):
         return omvll.ObfuscationConfig.default_config(self, module, func, [], [], [], 50)
 ```
 
+### Pass Phase Selection
+You can configure the optimization phase in which each pass is added to the `PassBuilder` pipeline.
+
+```python
+omvll.config.pass_phases = {
+        # The pass name and numeric phase identifiers are illustrative placeholders; only a subset of phases is currently implemented.
+        "PassName1":    [omvll.Phase.1],
+        # A pass can be registered in multiple phases; in that case, it will be added to each corresponding pipeline stage.
+        "PassName2":    [omvll.Phase.1, omvll.Phase.2],
+    }
+```
+
+The following phases are currently supported:
+- `omvll.Phase.Early`  
+  Registers the pass using `registerPipelineEarlySimplificationEPCallback`.  
+  *(Used by default when no phase is explicitly specified.)*
+- `omvll.Phase.Last`  
+  Registers the pass using `registerOptimizerLastEPCallback`.
+
+
 ### Python Standard Library
 
 O-MVLL is statically linked with the Python VM. This static link allows us to **not require**
